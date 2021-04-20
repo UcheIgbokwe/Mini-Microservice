@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{54CFAFC7-1A31-40F8-B1D5-DE760A312F5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7430B554-3C07-47F3-AF28-B34D6D44F6BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{73196A8D-37FF-45B2-A50A-AE9814F9E734}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "src\Services\Catalog\Catalog.API\Catalog.API.csproj", "{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,5 +22,24 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Debug|x64.Build.0 = Debug|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Debug|x86.Build.0 = Debug|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Release|x64.ActiveCfg = Release|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Release|x64.Build.0 = Release|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Release|x86.ActiveCfg = Release|Any CPU
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7430B554-3C07-47F3-AF28-B34D6D44F6BD} = {54CFAFC7-1A31-40F8-B1D5-DE760A312F5B}
+		{73196A8D-37FF-45B2-A50A-AE9814F9E734} = {7430B554-3C07-47F3-AF28-B34D6D44F6BD}
+		{F47EAE8F-C821-49BF-91AC-32D4DCB5311D} = {73196A8D-37FF-45B2-A50A-AE9814F9E734}
 	EndGlobalSection
 EndGlobal
