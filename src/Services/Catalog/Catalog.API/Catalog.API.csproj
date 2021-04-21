@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <DockerComposeProjectPath>../../../../docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>4b5beb5b-8c37-4240-a348-ef5d445a84d2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
