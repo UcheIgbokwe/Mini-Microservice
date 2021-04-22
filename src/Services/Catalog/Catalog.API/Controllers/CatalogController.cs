@@ -30,7 +30,7 @@ namespace src.Services.Catalog.Catalog.API.Controllers
         }
 
         [HttpGet("{id:length(24)}", Name = "GetProduct")]
-        [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> GetProduct(string id)
         {
            var product = await _repository.GetProduct(id).ConfigureAwait(false);
