@@ -14,7 +14,6 @@ namespace Discount.Grpc
         {
             _logger = logger;
         }
-
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
             return Task.FromResult(new HelloReply
