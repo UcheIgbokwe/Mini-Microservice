@@ -7,16 +7,16 @@ namespace src.Services.Ordering.Ordering.Domain.Common
 {
     protected static bool EqualOperator(ValueObject left, ValueObject right)
     {
-        if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+        if (left is null ^ right is null)
         {
             return false;
         }
-        return ReferenceEquals(left, null) || left.Equals(right);
+        return left?.Equals(right) != false;
     }
 
     protected static bool NotEqualOperator(ValueObject left, ValueObject right)
     {
-        return !(EqualOperator(left, right));
+        return !EqualOperator(left, right);
     }
 
     protected abstract IEnumerable<object> GetEqualityComponents();
@@ -36,7 +36,7 @@ namespace src.Services.Ordering.Ordering.Domain.Common
     public override int GetHashCode()
     {
         return GetEqualityComponents()
-            .Select(x => x != null ? x.GetHashCode() : 0)
+            .Select(x => (x?.GetHashCode()) ?? 0)
             .Aggregate((x, y) => x ^ y);
     }
     // Other utility methods
