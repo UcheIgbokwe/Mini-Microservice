@@ -3,7 +3,7 @@ using MediatR;
 
 namespace src.Services.Ordering.Ordering.Application.Features.Orders.Queries.GetOrdersList
 {
-    public class GetOrdersListQuery : IRequest<List<OrdersVm>>
+    public class GetOrdersListQuery : IRequest<IEnumerable<OrdersVm>>
     {
         public string UserName { get; set; }
 

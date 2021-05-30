@@ -14,13 +14,13 @@ namespace src.Services.Ordering.Ordering.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<OrderContext>(options => options.UseSqlServer(configuration.GetConnectionString("OrderingConnectionString")));
+            services.AddDbContext<OrderContext>(options => options.UseSqlServer(configuration.GetConnectionString("OrderingConnectionString")), ServiceLifetime.Singleton);
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
             services.AddScoped<IOrderRepository, OrderRepository>();
 
-            services.Configure<EmailSettings>(_ => configuration.GetSection("EmailSetings"));
-            services.AddTransient<IEmailService, EmailService>();
+            // services.Configure<EmailSettings>(_ => configuration.GetSection("EmailSettings"));
+            // services.AddScoped<IEmailService, EmailService>();
 
 
             return services;
