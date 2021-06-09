@@ -6,7 +6,7 @@ namespace Ordering.Application.Mappings
 {
     public static class OrderMapper
     {
-         private static readonly Lazy<IMapper> Lazy = new Lazy<IMapper>(() =>
+         private static readonly Lazy<IMapper> Lazy = new(() =>
         {
             var config = new MapperConfiguration(cfg =>
             {

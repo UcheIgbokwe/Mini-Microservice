@@ -38,7 +38,7 @@ namespace src.Services.Ordering.Ordering.Application.Features.Orders.Commands.Ch
 
         private async Task SendMail(Order newOrder)
         {
-            var email = new Email()
+            _ = new Email()
             {
                 To = "uchehenryigbokwe@gmail.com",
                 Body = "Order was created",
