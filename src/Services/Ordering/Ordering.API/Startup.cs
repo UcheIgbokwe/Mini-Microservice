@@ -1,5 +1,7 @@
 using System.Reflection;
+using EventBus.Messages.Common;
 using FluentValidation;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Ordering.API.EventBusConsumer;
 using src.Services.Ordering.Ordering.Application;
 using src.Services.Ordering.Ordering.Application.Behaviours;
 using src.Services.Ordering.Ordering.Application.Contracts.Infrastructure;
@@ -34,33 +37,28 @@ namespace Ordering.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddApplicationServices();
-            //services.AddInfrastructureServices(Configuration);
-
             services.AddControllers();
+            services.AddInfrastructureServices(Configuration);
 
-            services.AddDbContext<OrderContext>(c =>
-                c.UseSqlServer(Configuration.GetConnectionString("OrderingConnectionString")), ServiceLifetime.Singleton);
-            
-            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
-            services.AddTransient<IOrderRepository, OrderRepository>();
-
+            //General config
             services.AddAutoMapper(typeof(Startup));
-
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(typeof(CheckOutOrderCommandHandler).GetTypeInfo().Assembly);
+            services.AddScoped<BasketCheckoutConsumer>();
 
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-            services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
 
+            //Mass transit-RabbitMq Config
+            services.AddMassTransit(config => {
+                config.AddConsumer<BasketCheckoutConsumer>();
+                
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                    
+                    cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c => c.ConfigureConsumer<BasketCheckoutConsumer>(ctx));
+                });
+            });
+            services.AddMassTransitHostedService();
             
-            // services.AddTransient(typeof(IEmailService), typeof(EmailService));
-            // services.Configure<EmailSettings>( _ => Configuration.GetSection("EmailSettings"));
-
-
-
-
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ordering.API", Version = "v1" }));
         }
 
