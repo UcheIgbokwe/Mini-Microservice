@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY src/Services/Basket/Basket.API/Basket.API.csproj src/Services/Basket/Basket.API/
+COPY src/BuildingBlocks/EventBus.Messages/EventBus.Messages.csproj src/BuildingBlocks/EventBus.Messages/
 RUN dotnet restore "src/Services/Basket/Basket.API/Basket.API.csproj"
 COPY . .
 WORKDIR "/src/src/Services/Basket/Basket.API"
