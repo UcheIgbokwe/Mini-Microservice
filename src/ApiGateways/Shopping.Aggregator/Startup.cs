@@ -1,16 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Shopping.Aggregator.Services;
 
 namespace Shopping.Aggregator
 {
@@ -27,11 +22,17 @@ namespace Shopping.Aggregator
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddHttpClient<ICatalogService, CatalogService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:CatalogUrl"]));
+
+            services.AddHttpClient<IBasketService, BasketService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:BasketUrl"]));
+
+            services.AddHttpClient<IOrderService, OrderService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:OrderingUrl"]));
+
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shopping.Aggregator", Version = "v1" });
-            });
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shopping.Aggregator", Version = "v1" }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,16 +45,13 @@ namespace Shopping.Aggregator
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shopping.Aggregator v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
