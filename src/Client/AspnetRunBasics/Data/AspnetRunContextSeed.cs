@@ -16,8 +16,8 @@ namespace AspnetRunBasics.Data
             try
             {
                 // TODO: Only run this if using a real database
-                // aspnetrunContext.Database.Migrate();
-                // aspnetrunContext.Database.EnsureCreated();
+                //aspnetrunContext.Database.Migrate();
+                //aspnetrunContext.Database.EnsureCreated();
 
                 if (!aspnetrunContext.Categories.Any())
                 {
